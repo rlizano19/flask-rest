@@ -2,8 +2,8 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                which docker
-                docker container ls
+                sh "which docker"
+                sh "docker container ls"
             }
         }
         stage('deploy') {
