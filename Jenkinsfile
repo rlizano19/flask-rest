@@ -3,14 +3,14 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                docker build -t flask-rest .
+                sh 'docker build -t flask-rest .'
             }
         }
         stage('deploy') {
             steps {
-                kubectl apply -f app-deployment.yml
-                sleep 6
-                minikube service flask-rest
+                sh 'kubectl apply -f app-deployment.yml'
+                sh 'sleep 6'
+                sh 'minikube service flask-rest'
             }
         }
     }
