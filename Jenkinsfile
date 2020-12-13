@@ -4,7 +4,6 @@ pipeline {
         stage('build') {
             steps {
                 sh "docker container ls"
-                sh "docker build -t flask-rest:latest ."
             }
         }
         stage('deploy') {
@@ -12,6 +11,8 @@ pipeline {
                 sh "minikube stop"
                 sh "minikube start"
                 sh "eval `minikube docker-env`"
+                sh "docker rmi flask-rest"
+                sh "docker build -t flask-rest:latest ."
                 sh "docker container ls"
                 sh "docker run -p 8000:8000 -d flask-rest"
                 sh "eval `minikube docker-env`"
