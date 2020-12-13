@@ -9,23 +9,23 @@ pipeline {
         stage('deploy') {
             steps {
                 sh "eval ${minikube docker-env}"
-                docker container ls
-                docker build -t flask-rest:latest .
-                docker run -p 8000:8000 -d flask-rest
-                docker image ls
-                cat app-deployment.yml
-                minikube start
-                sleep 6
-                kubectl delete deployment.apps/flask-rest
-                kubectl delete service/flask-rest-service
-                sleep 4
-                kubectl get pods,svc,deploy
-                kubectl apply -f app-deployment.yml
-                sleep 6
-                kubectl get pods,svc,deploy
-                minikube status
-                minikube service flask-rest-service --url
-                sleep 60
+                sh "docker container ls"
+                sh "docker build -t flask-rest:latest ."
+                sh "docker run -p 8000:8000 -d flask-rest"
+                sh "docker image ls"
+                sh "cat app-deployment.yml"
+                sh "minikube start"
+                sh "sleep 6"
+                sh "kubectl delete deployment.apps/flask-rest"
+                sh "kubectl delete service/flask-rest-service"
+                sh "sleep 4"
+                sh "kubectl get pods,svc,deploy"
+                sh "kubectl apply -f app-deployment.yml"
+                sh "sleep 6"
+                sh "kubectl get pods,svc,deploy"
+                sh "minikube status"
+                sh "minikube service flask-rest-service --url"
+                sh "sleep 60"
             }
         }
     }
