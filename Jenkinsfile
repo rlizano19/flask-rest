@@ -9,11 +9,12 @@ pipeline {
         }
         stage('deploy') {
             steps {
+                sh "minikube stop"
+                sh "minikube start"
                 sh "eval `minikube docker-env`"
                 sh "docker container ls"
                 sh "docker run -p 8000:8000 -d flask-rest"
                 sh "eval `minikube docker-env`"
-                sh "minikube start"
                 sh "sleep 6"
                 sh "kubectl delete deployment.apps/flask-rest"
                 sh "kubectl delete service/flask-rest-service"
