@@ -11,7 +11,7 @@ pipeline {
                 sh "docker rmi -f flask-rest"
                 sh "docker build -t flask-rest:latest ."
                 sh "docker images"
-                sh "docker rm `docker container ls -n 1 -q`"
+                sh "docker rm -f `docker container ls -n 1 -q`"
                 sh "docker container ls --all"
                 sh "docker run -p 8000:8000 -d flask-rest"
                 sh "kubectl delete deployment.apps flask-rest"
