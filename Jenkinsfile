@@ -1,4 +1,3 @@
-#Dev pipeline
 pipeline {
     agent any
     stages {
