@@ -8,7 +8,7 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                sh "eval $(minikube -p minikube docker-env)"
+                sh "eval ${minikube -p minikube docker-env}"
                 docker container ls
                 docker build -t flask-rest:latest .
                 docker run -p 8000:8000 -d flask-rest
