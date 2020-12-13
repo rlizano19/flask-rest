@@ -12,8 +12,6 @@ pipeline {
                 sh "eval `minikube docker-env`"
                 sh "docker container ls"
                 sh "docker run -p 8000:8000 -d flask-rest"
-                sh "docker image ls"
-                sh "cat app-deployment.yml"
                 sh "minikube status"
                 sh "minikube start"
                 sh "sleep 6"
@@ -24,9 +22,7 @@ pipeline {
                 sh "kubectl apply -f app-deployment.yml"
                 sh "sleep 6"
                 sh "kubectl get pods,svc,deploy"
-                sh "minikube status"
                 sh "minikube service flask-rest-service --url"
-                sh "sleep 60"
             }
         }
     }
