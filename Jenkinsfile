@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
+                sh 'which docker'
                 sh 'docker build -t flask-rest .'
             }
         }
