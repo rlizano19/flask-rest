@@ -11,11 +11,11 @@ pipeline {
             steps {
                 sh "eval `minikube docker-env`"
                 sh "docker container ls"
-                sh "docker run -p 8100:8100 -d flask-rest"
-                sh "minikube start --namespace=dev"
+                sh "docker run -p 8000:8000 -d flask-rest"
+                sh "eval `minikube docker-env`"
+                sh "minikube start"
                 sh "sleep 6"
-                sh "kubectl apply -f dev-namespace.yml"
-                sh "kubectl config set-context minikube --namespace=dev"
+                sh "kubectl delete namespace dev"
                 sh "kubectl delete deployment.apps/flask-rest"
                 sh "kubectl delete service/flask-rest-service"
                 sh "sleep 4"
@@ -24,6 +24,8 @@ pipeline {
                 sh "sleep 6"
                 sh "kubectl get pods,svc,deploy"
                 sh "minikube service flask-rest-service --url"
+                sh "minikube service list"
+                sh "sleep 30"
             }
         }
     }
