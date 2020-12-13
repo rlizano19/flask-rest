@@ -15,7 +15,6 @@ pipeline {
                 sh "eval `minikube docker-env`"
                 sh "minikube start"
                 sh "sleep 6"
-                sh "kubectl delete namespace dev"
                 sh "kubectl delete deployment.apps/flask-rest"
                 sh "kubectl delete service/flask-rest-service"
                 sh "sleep 4"
