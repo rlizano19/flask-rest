@@ -3,8 +3,8 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh "git checkout qa"
-                sh "git checkout dev"
+                sh "git checkout $ENVIRONMENT"
+                sh "git status"
                 sh "minikube start --namespace=$ENVIRONMENT"
                 sh "eval `minikube docker-env`"
                 sh "kubectl config set-context $ENVIRONMENT --namespace=$ENVIRONMENT --cluster=minikube --user=minikube"
@@ -16,8 +16,6 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                sh "kubectl delete deployment.apps flask-rest"
-                sh "kubectl delete service $ENVIRONMENT-flask-rest-service"
                 sh "kubectl get all"
                 sh "kubectl apply -f $ENVIRONMENT-namespace.yml"
                 sh "kubectl apply -f app-deployment.yml"
