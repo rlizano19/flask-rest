@@ -4,6 +4,7 @@ pipeline {
         stage('build') {
             steps {
                 sh "git checkout $ENVIRONMENT"
+                sh "git pull"
                 sh "minikube start --namespace=$ENVIRONMENT"
                 sh "eval `minikube docker-env`"
                 sh "kubectl config set-context $ENVIRONMENT --namespace=$ENVIRONMENT --cluster=minikube --user=minikube"
