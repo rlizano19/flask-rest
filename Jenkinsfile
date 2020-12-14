@@ -2,28 +2,22 @@ pipeline {
     agent any
     stages {
         stage('build') {
-            when { 
-                environment name: 'ENVIRONMENT', value: 'production'
-            }
             steps {
-                sh "minikube start --namespace=dev"
+                sh "minikube start --namespace=$ENVIRONMENT"
                 sh "eval `minikube docker-env`"
-                sh "kubectl config set-context dev --namespace=dev --cluster=minikube --user=minikube"
-                sh "kubectl config use-context dev"
+                sh "kubectl config set-context $ENVIRONMENT --namespace=$ENVIRONMENT --cluster=minikube --user=minikube"
+                sh "kubectl config use-context $ENVIRONMENT"
                 sh "kubectl config current-context"
-                sh "docker build -t flask-rest-dev:latest ."
+                sh "docker build -t flask-rest-$ENVIRONMENT:latest ."
                 sh "docker images"
             }
         }
         stage('deploy') {
-            when { 
-                environment name: 'ENVIRONMENT', value: 'production'
-            }
             steps {
                 sh "kubectl delete deployment.apps flask-rest"
-                sh "kubectl delete service dev-flask-rest-service"
+                sh "kubectl delete service $ENVIRONMENT-flask-rest-service"
                 sh "kubectl get all"
-                sh "kubectl apply -f dev-namespace.yml"
+                sh "kubectl apply -f $ENVIRONMENT-namespace.yml"
                 sh "kubectl apply -f app-deployment.yml"
                 sh "sleep 5"
                 sh "kubectl get all"
