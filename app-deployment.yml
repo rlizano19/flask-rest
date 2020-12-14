@@ -17,7 +17,7 @@ spec:
         image: flask-rest:latest
         imagePullPolicy: IfNotPresent 
         ports:
-        - containerPort: 8000
+        - containerPort: 8100
 ---
 apiVersion: v1
 kind: Service
@@ -26,7 +26,7 @@ metadata:
 spec:
   ports:
   - port: 8111
-    targetPort: 8000
+    targetPort: 8100
     protocol: TCP
   selector:
     app: flask-rest

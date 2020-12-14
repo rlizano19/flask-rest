@@ -10,11 +10,11 @@ import json
 @simple.route('/hello')
 def hello():
     """Renders a sample page."""
-    return "Hello World!"
+    return "This is the DEV environment."
 
 @simple.route('/test', methods = ['GET'])
 def get_tasks():
-    return make_response('Test successful!', 200)
+    return make_response('DEV Test successful!', 200)
 
 class EchoRoute(MethodView):
     def get(self, id=None):

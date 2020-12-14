@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh "minikube start"
+                sh "minikube start --namespace=dev"
                 sh "eval `minikube docker-env`"
                 sh "docker build -t flask-rest:latest ."
                 sh "docker images"
@@ -11,6 +11,7 @@ pipeline {
         }
         stage('deploy') {
             steps {
+                sh "kubectl apply -f dev-namespace.yml"
                 sh "kubectl apply -f app-deployment.yml"
                 sh "sleep 5"
                 sh "kubectl get all"
