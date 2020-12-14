@@ -2,6 +2,9 @@ pipeline {
     agent any
     stages {
         stage('build') {
+            when { 
+                environment name: 'ENVIRONMENT', value: 'production'
+            }
             steps {
                 sh "minikube start --namespace=dev"
                 sh "eval `minikube docker-env`"
@@ -13,6 +16,9 @@ pipeline {
             }
         }
         stage('deploy') {
+            when { 
+                environment name: 'ENVIRONMENT', value: 'production'
+            }
             steps {
                 sh "kubectl delete deployment.apps flask-rest"
                 sh "kubectl delete service dev-flask-rest-service"
