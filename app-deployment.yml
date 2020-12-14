@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: flask-rest 
-        image: flask-rest-$ENVIRONMENT:latest
+        image: flask-rest-dev:latest
         imagePullPolicy: IfNotPresent 
         ports:
         - containerPort: 8100
@@ -22,7 +22,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: $ENVIRONMENT-flask-rest-service
+  name: dev-flask-rest-service
 spec:
   ports:
   - port: 8101
