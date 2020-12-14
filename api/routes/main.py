@@ -10,7 +10,7 @@ import json
 @simple.route('/hello')
 def hello():
     """Renders a sample page."""
-    return "This is the QA environment!"
+    return "Test message"
 
 @simple.route('/test', methods = ['GET'])
 def get_tasks():
