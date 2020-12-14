@@ -5,7 +5,7 @@ pipeline {
             steps {
                 sh "minikube start --namespace=dev"
                 sh "eval `minikube docker-env`"
-                sh "docker build -t flask-rest:latest ."
+                sh "docker build -t flask-rest:dev ."
                 sh "docker images"
             }
         }
