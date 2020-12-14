@@ -8,6 +8,7 @@ pipeline {
                 sh "docker build -t flask-rest:latest ."
                 sh "docker images"
             }
+        }
         stage('deploy') {
             steps {
                 sh "kubectl apply -f app-deployment.yml"
